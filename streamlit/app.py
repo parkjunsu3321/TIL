@@ -109,4 +109,4 @@ metrics_df_reset = metrics_df.reset_index(drop=True)
 
 st.dataframe(metrics_df_reset, height=100, use_container_width=True)
 
-print("Streamlit app is running...")  # 디버그용 출력
+print("1234")  # 디버그용 출력
