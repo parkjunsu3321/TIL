@@ -48,10 +48,14 @@ jobs:
             cd /home/ubuntu/TIL
             git pull origin main
             cd /home/ubuntu/TIL/streamlit
-            docker stop bitcoin-ui . || true
+            # 기존 컨테이너 종료 및 제거
+            docker stop bitcoin-ui || true
             docker rm bitcoin-ui || true
+            # 이미지 빌드
             docker build -t bitcoin-ui .
+            # 컨테이너 실행 (포트 충돌 방지를 위해 필요시 8080 사용)
             docker run -d -p 80:8501 --name bitcoin-ui bitcoin-ui
+
       # 5️⃣ 보안 그룹에서 Actions IP 제거
       - name: Remove Github Actions IP From Security Group
         run: |
