@@ -45,11 +45,12 @@ jobs:
           port: ${{ secrets.EC2_SSH_PORT }}
           script_stop: true
           script: |
+            git pull origin main
             cd /home/ubuntu/TIL/streamlit
-            echo "GitHub Actions SSH Test" > test.txt
-            npm ci
-            npm run build
-
+            docker stop bitcoin-ui . || true
+            docker rm bitcoin-ui || true
+            docker build -t bitcoin-ui .
+            docker run -d -p 80:8501 --name bitcoin-ui bitcoin-ui
       # 5️⃣ 보안 그룹에서 Actions IP 제거
       - name: Remove Github Actions IP From Security Group
         run: |
