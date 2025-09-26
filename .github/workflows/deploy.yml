@@ -45,8 +45,9 @@ jobs:
           port: ${{ secrets.EC2_SSH_PORT }}
           script_stop: true
           script: |
+            cd /home/ubuntu/TIL
             git pull origin main
-            cd /home/ubuntu/TIL/streamlit
+            cd /streamlit
             docker stop bitcoin-ui . || true
             docker rm bitcoin-ui || true
             docker build -t bitcoin-ui .
