@@ -53,8 +53,19 @@ jobs:
             docker stop bitcoin-ui || true
             docker rm bitcoin-ui || true
 
-            # 80번 포트 사용 중인 프로세스 종료
-            sudo fuser -k 80/tcp || true
+            # 80번 포트를 사용하는 모든 프로세스 강제 종료
+            sudo lsof -ti:80 | xargs sudo kill -9 || true
+            sudo netstat -tlnp | grep :80 | awk '{print $7}' | cut -d'/' -f1 | xargs sudo kill -9 || true
+            
+            # 잠시 대기 (포트 해제 시간 확보)
+            sleep 3
+
+            # Apache/Nginx 등 웹서버가 실행 중이면 중지
+            sudo systemctl stop apache2 || true
+            sudo systemctl stop nginx || true
+            
+            # 다른 Docker 컨테이너가 80번 포트를 사용하고 있다면 중지
+            docker ps --format "table {{.ID}}\t{{.Ports}}" | grep "0.0.0.0:80" | awk '{print $1}' | xargs docker stop || true
 
             # 이미지 빌드 및 실행
             docker build -t bitcoin-ui .
