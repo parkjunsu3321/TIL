@@ -45,7 +45,7 @@ jobs:
           port: ${{ secrets.EC2_SSH_PORT }}
           script_stop: true
           script: |
-            cd ~/my-project
+            cd /home/ubuntu/TIL/streamlit
             echo "GitHub Actions SSH Test" > test.txt
             npm ci
             npm run build
