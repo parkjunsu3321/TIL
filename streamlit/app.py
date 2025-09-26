@@ -4,7 +4,7 @@ import numpy as np
 from datetime import datetime, timedelta
 import plotly.graph_objects as go
 
-st.set_page_config(page_title="Bitcoin 예측 UI", layout="wide")
+st.set_page_config(page_title="Bitcoin 예측 사이트", layout="wide")
 
 # -------------------------
 # 제목 + 버튼
