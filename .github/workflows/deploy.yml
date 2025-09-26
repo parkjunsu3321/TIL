@@ -47,7 +47,7 @@ jobs:
           script: |
             cd /home/ubuntu/TIL
             git pull origin main
-            cd /streamlit
+            cd /home/ubuntu/TIL/streamlit
             docker stop bitcoin-ui . || true
             docker rm bitcoin-ui || true
             docker build -t bitcoin-ui .
