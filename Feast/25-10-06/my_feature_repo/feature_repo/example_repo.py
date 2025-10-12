@@ -80,6 +80,7 @@ input_request = RequestSource(
         Field(name="conv_rate_plus_val2", dtype=Float64),
     ],
 )
+
 def transformed_conv_rate(inputs: pd.DataFrame) -> pd.DataFrame:
     df = pd.DataFrame()
     df["conv_rate_plus_val1"] = inputs["conv_rate"] + inputs["val_to_add"]
@@ -98,6 +99,7 @@ driver_activity_v1 = FeatureService(
         destination=FileLoggingDestination(path="data")
     ),
 )
+
 driver_activity_v2 = FeatureService(
     name="driver_activity_v2", features=[driver_stats_fv, transformed_conv_rate]
 )
